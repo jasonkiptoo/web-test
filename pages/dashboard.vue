@@ -37,6 +37,7 @@
         @click:append-inner="onClick"
       ></v-text-field>
     </v-card-text>
+    {{ sendError }}
 
     <!-- <v-card variant="outlined" class="mx-auto" max-width="344" elevation="0">
         <v-card-item>
@@ -99,11 +100,14 @@ import { getData } from '../services/httpService.js';
 
 const startScan = ref(false);
 const urLink = ref("");
+const sendError=ref("jdhsd")
 
 
 const urls = ref([]);
 
 const onDetect = (value) => {
+  console.log("Dsdsdsds")
+  sendError.value ="nimecheki"
   // Handle detected QR code
 };
 
