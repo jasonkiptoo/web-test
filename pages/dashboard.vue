@@ -106,7 +106,7 @@ const sendError=ref(null)
 const urls = ref([]);
 
 const onDetect = (value) => {
-  urLink.value = value['rawValue']
+  urLink.value = value[0].rawValue
   sendError.value = value
 };
 
