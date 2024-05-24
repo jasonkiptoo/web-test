@@ -107,7 +107,7 @@ const urls = ref([]);
 
 const onDetect = (value) => {
   urLink.value = value['rawValue']
-  sendError.value = getValue
+  sendError.value = value['rawValue']
 };
 
 const scan = () => {
