@@ -2,9 +2,9 @@ import axios from "axios";
 
 
 export async function getData(url) {
-  // console.log("cdschsbc", url)
+  const params = {"url":url}
   const response = await axios
-      .get(`https://e-tims.onrender.com/get-headers`, url)
+      .post(`http://localhost:8000/get-headers`, params ).then((res)=>{console.log(res, "Rerererer")}).catch((err)=>{console.err(err)})
   return response;
 
 }
