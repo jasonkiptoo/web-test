@@ -74,6 +74,8 @@
         </th>
       </tr>
     </thead>
+
+    {{receiptData}}
     <tbody>
       <tr
         v-for="item in urls"
@@ -101,6 +103,7 @@ import { getData } from '../services/httpService.js';
 const startScan = ref(false);
 const urLink = ref("");
 const sendError=ref(null)
+const receiptData =ref({})
 
 
 const urls = ref([]);
@@ -126,7 +129,7 @@ console.log("dcscsc", urLink.value)
   // Perform save action
 };
 const getDownload=()=>{
-    getData(urLink.value)
+   receiptData.value= getData(urLink.value)
 }
 </script>
 
