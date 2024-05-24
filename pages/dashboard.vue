@@ -128,8 +128,8 @@ console.log("dcscsc", urLink.value)
   urls.value.push({url:urLink.value, name: "link"});
   // Perform save action
 };
-const getDownload=()=>{
-   receiptData.value= getData(urLink.value)
+const getDownload=async()=>{
+   receiptData.value= await getData(urLink.value)
 }
 </script>
 
