@@ -106,9 +106,7 @@ const sendError=ref(null)
 const urls = ref([]);
 
 const onDetect = (value) => {
-  console.log("Dsdsdsds")
-  sendError.value = value
-  // Handle detected QR code
+  urLink.value = value['rawValue']
 };
 
 const scan = () => {
