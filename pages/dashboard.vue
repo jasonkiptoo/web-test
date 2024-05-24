@@ -107,7 +107,7 @@ const urls = ref([]);
 
 const onDetect = (value) => {
   console.log("Dsdsdsds")
-  sendError.value ="nimecheki"
+  sendError.value = value
   // Handle detected QR code
 };
 
