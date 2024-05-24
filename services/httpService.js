@@ -4,7 +4,7 @@ export async function getData(url) {
   const params = { "url": url };
   
   try {
-    const response = await axios.post(`http://localhost:8000/get-headers`, params);
+    const response = await axios.post(`https://e-tims.onrender.com/get-headers`, params);
     // Extract data from the response
     const data = response.data;
     // Log the response for debugging
