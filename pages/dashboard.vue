@@ -55,8 +55,8 @@
       </thead>
       <tbody>
         <tr v-for="(value, key) in receiptData" :key="key">
-          <td>{{ receiptData }}</td>
-          <!-- <td>{{ value }}</td> -->
+          <td>{{ value['Control Unit Invoice Number'] }}</td>
+          <td>{{ value }}</td>
         </tr>
       </tbody>
     </v-table>
