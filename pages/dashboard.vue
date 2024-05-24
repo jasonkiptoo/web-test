@@ -100,7 +100,7 @@ import { getData } from '../services/httpService.js';
 
 const startScan = ref(false);
 const urLink = ref("");
-const sendError=ref("jdhsd")
+const sendError=ref(null)
 
 
 const urls = ref([]);
