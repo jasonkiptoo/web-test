@@ -4,14 +4,25 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "deploy-fb":  "cd .output/server && rm -r node_modules && npm install && cd .. && firebase deploy",
     "dev": "nuxt dev",
+    "start": "nuxt start",
+    "dev:host": "nuxt --hostname '0' --port 8000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "nuxt": "^3.11.2",
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "vue": "^3.4.21",
+    "vue-qrcode-reader": "^5.5.4",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.1",
+    "firebase-functions-test": "^3.2.0",
+    "vuetify-nuxt-module": "^0.13.5"
   }
 }
