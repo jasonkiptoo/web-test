@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const url_be = process.env.BASE_URL
+const url_be = 'http://localhost:8000/get-headers'
+// const url_be = 'http://localhost:8000/get-headers'
 
 export async function getData(url) {
-  console.log(url_be, "Fdfddfdf")
+  // console.log(url_be, "Fdfddfdf")
   const params = { "url": url };
   
   try {
@@ -11,7 +12,7 @@ export async function getData(url) {
     // Extract data from the response
     const data = response.data;
     // Log the response for debugging
-    console.log(data, "Received data from server");
+    // console.log(data, "Received data from server");
     return data; // Return the extracted data
   } catch (error) {
     console.error(error);

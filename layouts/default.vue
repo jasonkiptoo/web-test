@@ -1,7 +1,7 @@
 <template>
-    <!-- <header>
-        <v-toolbar color="primary" :elevation="0" title="Scan Me"></v-toolbar>
-    </header> -->
+    <header>
+        <v-toolbar color="#212121" :elevation="0" title="Scan Me"></v-toolbar>
+    </header>
       <slot />
 </template>
 
