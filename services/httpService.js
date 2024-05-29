@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const url_be = process.env.BASE_URL
+
 export async function getData(url) {
+  console.log(url_be, "Fdfddfdf")
   const params = { "url": url };
   
   try {
-    const response = await axios.post(`https://e-tims.onrender.com/get-headers`, params);
+    const response = await axios.post(`${url_be}`, params);
     // Extract data from the response
     const data = response.data;
     // Log the response for debugging
