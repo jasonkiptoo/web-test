@@ -10,13 +10,13 @@
 
     <!-- Text field for entering URL -->
     <v-card-text>
-      <v-text-field v-model="urLink" :loading="loading" append-inner-icon="mdi-content-copy" density="compact" label=""
+      <v-text-field v-model="urLink" clearable append-inner-icon="mdi-content-copy" density="compact" label=""
         variant="outlined" hide-details single-line @click:append-inner="onClick"></v-text-field>
     </v-card-text>
     {{ sendError }}
 
    
-    <v-data-table-server v-model:items-per-page="itemsPerPage" :headers="headers" :items="receiptData"
+    <v-data-table-server  v-model:items-per-page="itemsPerPage" :headers="headers" :items="receiptData"
       :items-length="totalItems" :loading="loading" item-value="Supplier Name" @update:options="loadItems"></v-data-table-server>
     <!-- Buttons for scanning, saving, and downloading -->
     <v-row>
@@ -49,6 +49,7 @@ const sendError = ref(null);
 const receiptData = ref([]);
 const itemsPerPage = ref(0)
 const totalItems = ref(0)
+const loading = ref(false)
 const headers = ref([
   {
     title: "CUI",
@@ -63,27 +64,32 @@ const headers = ref([
 ]);
 
 // Function to handle QR code detection
-const onDetect = (value) => {
+const onDetect = async (value) => {
+  loading.value = true
   urLink.value = value[0].rawValue;
   sendError.value = value;
+ await scan()
   // Call getData function when URL is detected
-  getData(urLink.value)
-    .then((data) => {
-      receiptData.value = data;
-      console.log(data, "sdashgavhgvhg");
-    })
-    .catch((error) => {
-      console.error("Failed to get data:", error);
-    });
+  // getData(urLink.value)
+  //   .then((data) => {
+  //     receiptData.value = data;
+  //     console.log(data, "sdashgavhgvhg");
+  //   })
+  //   .catch((error) => {
+  //     console.error("Failed to get data:", error);
+  //   });
 
   urLink.value = "";
+  loading.value = false
+
 };
 
 // Function to toggle QR code scanning
 const scan = async () => {
+  loading.value = true
   // startScan.value = !startScan.value;
-
   const data = await getData(urLink.value);
+  loading.value = false
   receiptData.value.push(data);
   console.log(receiptData.value, "dcjhdcscbhj");
 };

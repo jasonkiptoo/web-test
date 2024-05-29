@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const url_be = 'http://localhost:8000/get-headers'
-// const url_be = 'http://localhost:8000/get-headers'
+// const url_be = 'http://localhost:8000'
+const url_be = 'https://e-tims.onrender.com'
 
 export async function getData(url) {
   // console.log(url_be, "Fdfddfdf")
   const params = { "url": url };
   
   try {
-    const response = await axios.post(`${url_be}`, params);
+    const response = await axios.post(`${url_be}/get-headers`, params);
     // Extract data from the response
     const data = response.data;
     // Log the response for debugging
