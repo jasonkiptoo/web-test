@@ -41,7 +41,7 @@ import { QrcodeStream } from "vue-qrcode-reader";
 import { getData } from "../services/httpService.js";
 import { excelDownload } from "~/services/excelService.js";
 
-const startScan = ref(false);
+const startScan = ref(true);
 const urLink = ref(
   "https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920"
 );
