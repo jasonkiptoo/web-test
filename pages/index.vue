@@ -38,9 +38,7 @@ import { excelDownload } from '~/services/excelService.js';
 
 const startScan = ref(false);
 const loadingURL = ref(false);
-const urLink = ref(''
-  // 'https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920'
-);
+const urLink = ref('');
 const sendError = ref(null);
 const receiptData = ref([]);
 const itemsPerPage = ref(10);
@@ -59,32 +57,25 @@ const headers = ref([
 ]);
 
 const onDetect = (value) => {
-  loadingURL.value = true;
   urLink.value = value[0].rawValue;
-  // await scan();
-  loadingURL.value = false;
+  startScan.value = false; // Stop the scanner to process the detected value
 };
 
 const scan = async () => {
-  loading.value = true
+  loading.value = true;
   try {
     const data = await getData(urLink.value);
-    loading.value = false
-    urLink.value = ''
-
+    urLink.value = '';
     receiptData.value.push(data);
     totalItems.value = receiptData.value.length;
+    loading.value = false;
+    startScan.value = true; // Restart the scanner after processing
   } catch (error) {
-    loading.value = false
-
+    loading.value = false;
     sendError.value = 'Failed to retrieve data.';
     console.error(error);
   }
 };
-
-// const toggleScan = () => {
-//   startScan.value = !startScan.value;
-// };
 
 const open = () => {
   startScan.value = true;
