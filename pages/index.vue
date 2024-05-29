@@ -2,7 +2,7 @@
   <v-container>
     <!-- QR code scanning section -->
     <v-card variant="outline" elevation="0" class="d-flex mx-auto justify-center" width="250" height="250">
-      <v-icon @click="scan" v-if="!startScan" size="250" color="#212121" aria-hidden="true">
+      <v-icon @click="open" v-if="!startScan" size="250" color="#212121" aria-hidden="true">
         mdi-qrcode-scan
       </v-icon>
       <qrcode-stream v-if="startScan" width="100" height="100" @detect="onDetect"></qrcode-stream>
@@ -95,7 +95,8 @@ const scan = async () => {
 };
 
 // Function to save URL
-const save = () => {
+const open = () => {
+  startScan.value = true
   // Placeholder function, adjust as needed
 };
 
