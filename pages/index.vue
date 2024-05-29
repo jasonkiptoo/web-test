@@ -15,16 +15,21 @@
     </v-card-text>
     {{ sendError }}
 
+   
     <v-data-table-server v-model:items-per-page="itemsPerPage" :headers="headers" :items="receiptData"
-      :items-length="totalItems" :loading="loading" item-value="name" @update:options="loadItems"></v-data-table-server>
+      :items-length="totalItems" :loading="loading" item-value="Supplier Name" @update:options="loadItems"></v-data-table-server>
     <!-- Buttons for scanning, saving, and downloading -->
     <v-row>
       <v-col class="ma-8 d-flex mx-auto justify-space-evenly">
         <v-btn color="primary" @click="scan" variant="outlined"> Scan </v-btn>
         <!-- <v-btn color="primary" @click="save" variant="outlined"> Save </v-btn> -->
-        <v-btn color="primary" @click="getDownload" variant="outlined">
-          Download
-        </v-btn>
+
+        <!-- <JsonExcel :data="receiptValue" > -->
+   
+          <v-btn color="primary" @click="getDownload" variant="outlined">
+            Download
+          </v-btn>
+  <!-- </JsonExcel> -->
       </v-col>
     </v-row>
   </v-container>
@@ -34,6 +39,7 @@
 import { ref } from "vue";
 import { QrcodeStream } from "vue-qrcode-reader";
 import { getData } from "../services/httpService.js";
+import { excelDownload } from "~/services/excelService.js";
 
 const startScan = ref(false);
 const urLink = ref(
@@ -52,7 +58,7 @@ const headers = ref([
   },
   { title: "Invoice Date", value: "Invoice Date", align: "start" },
   { title: "Supplier Name", value: "Supplier Name", align: "end" },
-  { title: "Total Invoice Amount", value: "fat", align: "end" },
+  // { title: "Total Invoice Amount", value: "fat", align: "end" },
   { title: "Total Taxable Amount", value: "Total Taxable Amount", align: "end" },
 ]);
 
@@ -88,7 +94,9 @@ const save = () => {
 };
 
 // Function to download data
-const getDownload = async () => {
+const getDownload =  () => {
+
+   excelDownload(receiptData.value)
   //   const data = await getData(urLink.value);
   //   console.log(data, "dcjhdcscbhj")
   //  receiptData.value.push(data)
