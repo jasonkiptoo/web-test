@@ -67,7 +67,7 @@ const headers = ref([
 const onDetect = async (value) => {
   loading.value = true
   urLink.value = value[0].rawValue;
-  sendError.value = value;
+  // sendError.value = value;
  await scan()
   // Call getData function when URL is detected
   // getData(urLink.value)
@@ -79,7 +79,7 @@ const onDetect = async (value) => {
   //     console.error("Failed to get data:", error);
   //   });
 
-  urLink.value = "";
+  // urLink.value = "";
   loading.value = false
 
 };
