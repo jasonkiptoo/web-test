@@ -10,7 +10,7 @@
 
     <!-- Text field for entering URL -->
     <v-card-text>
-      <v-text-field v-model="urLink" clearable :loading="loading" append-inner-icon="mdi-content-copy" density="compact" label=""
+      <v-text-field v-model="urLink" @change="onDetect" clearable :loading="loading" append-inner-icon="mdi-content-copy" density="compact" label=""
         variant="outlined" hide-details single-line @click:append-inner="onClick"></v-text-field>
     </v-card-text>
     {{ sendError }}
