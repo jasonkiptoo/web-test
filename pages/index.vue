@@ -10,103 +10,88 @@
 
     <!-- Text field for entering URL -->
     <v-card-text>
-      <v-text-field v-model="urLink" clearable append-inner-icon="mdi-content-copy" density="compact" label=""
+      <v-text-field v-model="urLink" clearable :loading="loading" append-inner-icon="mdi-content-copy" density="compact" label=""
         variant="outlined" hide-details single-line @click:append-inner="onClick"></v-text-field>
     </v-card-text>
     {{ sendError }}
 
-   
-    <v-data-table-server  v-model:items-per-page="itemsPerPage" :headers="headers" :items="receiptData"
-      :items-length="totalItems" :loading="loading" item-value="Supplier Name" @update:options="loadItems"></v-data-table-server>
+    <!-- Data table -->
+    <v-data-table-server v-model:items-per-page="itemsPerPage" :loading="loading" :headers="headers"
+      :items="receiptData" :items-length="totalItems"  item-value="Supplier Name"
+      @update:options="loadItems"></v-data-table-server>
+
     <!-- Buttons for scanning, saving, and downloading -->
     <v-row>
       <v-col class="ma-8 d-flex mx-auto justify-space-evenly">
-        <v-btn color="primary" @click="scan" variant="outlined"> Scan </v-btn>
-        <!-- <v-btn color="primary" @click="save" variant="outlined"> Save </v-btn> -->
-
-        <!-- <JsonExcel :data="receiptValue" > -->
-   
-          <v-btn color="primary" @click="getDownload" variant="outlined">
-            Download
-          </v-btn>
-  <!-- </JsonExcel> -->
+        <v-btn color="primary" @click="scan" variant="outlined"> Add </v-btn>
+        <v-btn color="primary" @click="getDownload" variant="outlined"> Download </v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { QrcodeStream } from "vue-qrcode-reader";
-import { getData } from "../services/httpService.js";
-import { excelDownload } from "~/services/excelService.js";
+import { ref } from 'vue';
+import { QrcodeStream } from 'vue-qrcode-reader';
+import { getData } from '../services/httpService.js';
+import { excelDownload } from '~/services/excelService.js';
 
-const startScan = ref(true);
+const startScan = ref(false);
+const loadingURL = ref(false);
 const urLink = ref(
-  "https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920"
+  'https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920'
 );
 const sendError = ref(null);
 const receiptData = ref([]);
-const itemsPerPage = ref(0)
-const totalItems = ref(0)
-const loading = ref(false)
+const itemsPerPage = ref(10);
+const totalItems = ref(0);
+const loading = ref(false);
 const headers = ref([
   {
-    title: "CUI",
-    align: "start",
+    title: 'CUI',
+    align: 'start',
     sortable: false,
     value: 'Control Unit Invoice Number',
   },
-  { title: "Invoice Date", value: "Invoice Date", align: "start" },
-  { title: "Supplier Name", value: "Supplier Name", align: "end" },
-  // { title: "Total Invoice Amount", value: "fat", align: "end" },
-  { title: "Total Taxable Amount", value: "Total Taxable Amount", align: "end" },
+  { title: 'Invoice Date', value: 'Invoice Date', align: 'start' },
+  { title: 'Supplier Name', value: 'Supplier Name', align: 'end' },
+  { title: 'Total Taxable Amount', value: 'Total Taxable Amount', align: 'end' },
 ]);
 
-// Function to handle QR code detection
-const onDetect = async (value) => {
-  loading.value = true
+const onDetect = (value) => {
+  loadingURL.value = true;
   urLink.value = value[0].rawValue;
-  // sendError.value = value;
- await scan()
-  // Call getData function when URL is detected
-  // getData(urLink.value)
-  //   .then((data) => {
-  //     receiptData.value = data;
-  //     console.log(data, "sdashgavhgvhg");
-  //   })
-  //   .catch((error) => {
-  //     console.error("Failed to get data:", error);
-  //   });
-
-  // urLink.value = "";
-  loading.value = false
-
+  // await scan();
+  loadingURL.value = false;
 };
 
-// Function to toggle QR code scanning
 const scan = async () => {
   loading.value = true
-  // startScan.value = !startScan.value;
-  const data = await getData(urLink.value);
-  loading.value = false
-  receiptData.value.push(data);
-  console.log(receiptData.value, "dcjhdcscbhj");
+  try {
+    const data = await getData(urLink.value);
+    loading.value = false
+    urLink.value = ''
+
+    receiptData.value.push(data);
+    totalItems.value = receiptData.value.length;
+  } catch (error) {
+    loading.value = false
+
+    sendError.value = 'Failed to retrieve data.';
+    console.error(error);
+  }
 };
 
-// Function to save URL
+// const toggleScan = () => {
+//   startScan.value = !startScan.value;
+// };
+
 const open = () => {
-  startScan.value = true
-  // Placeholder function, adjust as needed
+  startScan.value = true;
 };
 
-// Function to download data
-const getDownload =  () => {
-
-   excelDownload(receiptData.value)
-  //   const data = await getData(urLink.value);
-  //   console.log(data, "dcjhdcscbhj")
-  //  receiptData.value.push(data)
+const getDownload = () => {
+  excelDownload(receiptData.value);
 };
 </script>
 
