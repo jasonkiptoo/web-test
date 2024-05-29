@@ -38,8 +38,8 @@ import { excelDownload } from '~/services/excelService.js';
 
 const startScan = ref(false);
 const loadingURL = ref(false);
-const urLink = ref(
-  'https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920'
+const urLink = ref(''
+  // 'https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920'
 );
 const sendError = ref(null);
 const receiptData = ref([]);
